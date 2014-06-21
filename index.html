@@ -1,0 +1,133 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>LibJS</title>
+  <meta name="description" content="Making scoping better.">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">LibJS</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">Making scoping better.</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/oakfang/libjs/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/oakfang/libjs/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/oakfang/libjs" class="code">View LibJS on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h3>
+<a name="welcome-to-libjs" class="anchor" href="#welcome-to-libjs"><span class="octicon octicon-link"></span></a>Welcome to LibJS.</h3>
+
+<p>This modular library is here to make sure you do not use code you do not need.</p>
+
+<h3>
+<a name="its-all-about-the-modules" class="anchor" href="#its-all-about-the-modules"><span class="octicon octicon-link"></span></a>It's all about the modules</h3>
+
+<p>With LibJS, you divide your code into modules, like so:</p>
+
+<pre><code>lib.module('spam', function(moduleA, moduleB) {
+    var foo = moduleB.thingify('bar' * moduleA.CONST);
+    function poof (obj) {
+        return typeof obj === 'undefined' ? foo : bar;
+    }
+
+    return {poof: poof};
+});
+</code></pre>
+
+<p>Each module is registered to a global library of modules (obviously, you might as well create a local Lib, if you so desire).</p>
+
+<p>The module's parameters (i.e. moduleA and moduleB, above) are also modules loaded into the lib. Just make sure they're loaded up.</p>
+
+<p>Then, you simply register your <em>main</em>:</p>
+
+<pre><code>lib.main(function (spam) {
+    // ...
+});
+</code></pre>
+
+<p>Make sure to call it after loading all modules.</p>
+
+<h3>
+<a name="but-what-do-i-do-with-all-other-published-libraries-i-have" class="anchor" href="#but-what-do-i-do-with-all-other-published-libraries-i-have"><span class="octicon octicon-link"></span></a>But what do I do with all other published libraries I have?</h3>
+
+<p>What a great question to have! Lets say you wish to use <code>jQuery.min.js</code>. Well, first of all, <strong>don't put it as a script tag</strong>. I know, I told you to make sure everything is loaded before using main. I kind of lied. See, you <em>can</em> specify a requirement you haven't loaded, but what this will do is search your <code>libpath</code> (which you can change prior to your man declaration thus: <code>lib.modulePath('/static/js').main(...);</code>) for <code>moduleName.js</code> and insert it dynamically into the dom. It will also harvest all changes to the global scope made by the script and move them into the module's scope.</p>
+
+<h3>
+<a name="but-sir-jquerymin-is-not-a-legar-parameter-name" class="anchor" href="#but-sir-jquerymin-is-not-a-legar-parameter-name"><span class="octicon octicon-link"></span></a>But, sir, <code>jQuery.min</code> is NOT a legar parameter name!</h3>
+
+<p>Right you are. You can use the aliasing syntax for that:</p>
+
+<pre><code>lib.module('myModule', function(/* jQuery.min */jquery){...});
+</code></pre>
+
+<p>This will load jQuery.min.js as you jquey parameter. Isn't that just neat?</p>
+
+<h3>
+<a name="i-just-wish-you-had-some-better-syntax-for-it" class="anchor" href="#i-just-wish-you-had-some-better-syntax-for-it"><span class="octicon octicon-link"></span></a>I just wish you had some better syntax for it</h3>
+
+<p>Well, if you're not above using <code>sweet.js</code>, there's some cool features it adds. You should run <code>libc</code> from the <code>compiler</code> directory (using python2.7) with a single argument that is your directory of .sjs files.</p>
+
+<p>What's so great about the sweet support? Well, this:</p>
+
+<pre><code>module spam requires (moduleA, moduleB) {
+   defines {
+       sub moduleB.thingify;
+       subas moduleA.CONST, C;
+       var foo = thingify('bar' * C);
+       function poof (obj) {
+          return typeof obj === 'undefined' ? foo : bar;
+       }
+   }
+   exports {poof: poof}
+}
+</code></pre>
+
+<h3>
+<a name="whats-in-it-for-me" class="anchor" href="#whats-in-it-for-me"><span class="octicon octicon-link"></span></a>What's in it for me?</h3>
+
+<p>Well, not much, yet. Currently, there are a few cool modules that ship with <code>lib.js</code> (which you don't have you use, obviously). You can look at the demo page, and see, for example, the uses of <code>lib-route</code> and it's <code>libRoute</code> module. More features (especially regarding <code>lib-dom</code>) are under active development.</p>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/oakfang" class="avatar"><img src="https://avatars2.githubusercontent.com/u/3372607?s=60" width="48" height="48"/></a> <a href="https://github.com/oakfang">oakfang</a> maintains <a href="https://github.com/oakfang/libjs">LibJS</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="http://pages.github.com/">GitHub Pages</a><br/>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/oakfang/libjs/tarball/master" class="tar">tar</a><a href="https://github.com/oakfang/libjs/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
