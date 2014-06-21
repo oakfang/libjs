@@ -36,7 +36,7 @@ Make sure to call it after loading all modules.
 ### But what do I do with all other published libraries I have?
 What a great question to have! Lets say you wish to use `jQuery.min.js`. Well, first of all, **don't put it as a script tag**. I know, I told you to make sure everything is loaded before using main. I kind of lied. See, you *can* specify a requirement you haven't loaded, but what this will do is search your `libpath` (which you can change prior to your man declaration thus: `lib.modulePath('/static/js').main(...);`) for `moduleName.js` and insert it dynamically into the dom. It will also harvest all changes to the global scope made by the script and move them into the module's scope.
 
-### But, sir, `jQuery.min` is NOT a legar parameter name!
+### But, sir, `jQuery.min` is NOT a legal parameter name!
 Right you are. You can use the aliasing syntax for that:
 ```
 lib.module('myModule', function(/* jQuery.min */jquery){...});
