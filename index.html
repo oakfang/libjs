@@ -67,7 +67,7 @@
 <p>What a great question to have! Lets say you wish to use <code>jQuery.min.js</code>. Well, first of all, <strong>don't put it as a script tag</strong>. I know, I told you to make sure everything is loaded before using main. I kind of lied. See, you <em>can</em> specify a requirement you haven't loaded, but what this will do is search your <code>libpath</code> (which you can change prior to your man declaration thus: <code>lib.modulePath('/static/js').main(...);</code>) for <code>moduleName.js</code> and insert it dynamically into the dom. It will also harvest all changes to the global scope made by the script and move them into the module's scope.</p>
 
 <h3>
-<a name="but-sir-jquerymin-is-not-a-legar-parameter-name" class="anchor" href="#but-sir-jquerymin-is-not-a-legar-parameter-name"><span class="octicon octicon-link"></span></a>But, sir, <code>jQuery.min</code> is NOT a legar parameter name!</h3>
+<a name="but-sir-jquerymin-is-not-a-legal-parameter-name" class="anchor" href="#but-sir-jquerymin-is-not-a-legal-parameter-name"><span class="octicon octicon-link"></span></a>But, sir, <code>jQuery.min</code> is NOT a legal parameter name!</h3>
 
 <p>Right you are. You can use the aliasing syntax for that:</p>
 
